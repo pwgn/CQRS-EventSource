@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "9060d9c5-27da-4675-8595-e49f0e3b7762",
+		"name": "CQRS-EventSource",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ListCars",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostCar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{host}}:{{port}}/cars",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CheckInCar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{host}}:{{port}}/cars/1/checkin",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"cars",
+						"1",
+						"checkin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CheckOutCar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{host}}:{{port}}/cars/1/checkout",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"cars",
+						"1",
+						"checkout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
