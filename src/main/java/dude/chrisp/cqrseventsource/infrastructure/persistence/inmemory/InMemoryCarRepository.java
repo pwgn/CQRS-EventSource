@@ -1,13 +1,11 @@
 package dude.chrisp.cqrseventsource.infrastructure.persistence.inmemory;
 
-import dude.chrisp.cqrseventsource.domain.carmanager.api.entity.AddCar;
-import dude.chrisp.cqrseventsource.domain.carmanager.api.entity.Car;
-import dude.chrisp.cqrseventsource.domain.carmanager.spi.CarRepository;
+import dude.chrisp.cqrseventsource.domain.carmanager.model.Car;
+import dude.chrisp.cqrseventsource.domain.carmanager.repository.CarRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 @Repository
@@ -32,24 +30,16 @@ public class InMemoryCarRepository implements CarRepository {
     }
 
 	@Override
-	public Stream<Car> findAvailableCars() {
-		return cars.stream()
-				.filter(car -> car.available);
+	public Stream<Car> getCars() {
+		return cars.stream();
 	}
 
-	@Override
-	public Stream<Car> findUnavailableCars() {
-		return cars.stream()
-				.filter(car -> !car.available);
-	}
-
-	@Override
-	public Car addCar(AddCar addCar) {
-		String id = "" + addCar.hashCode();
-		Car newCar = new Car(id, addCar.rate, addCar.carModel);
-		cars.add(newCar);
+    @Override
+    public Car addCar(Car newCar) {
+        newCar.id = "" + newCar.hashCode();
+        cars.add(newCar);
         return newCar;
-	}
+    }
 
 	@Override
 	public Car updateCar(Car updateCar) {
