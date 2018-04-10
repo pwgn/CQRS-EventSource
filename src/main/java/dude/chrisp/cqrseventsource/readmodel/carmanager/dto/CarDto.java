@@ -1,4 +1,4 @@
-package dude.chrisp.cqrseventsource.infrastructure.rest.dto;
+package dude.chrisp.cqrseventsource.readmodel.carmanager.dto;
 
 public class CarDto {
     public String id;

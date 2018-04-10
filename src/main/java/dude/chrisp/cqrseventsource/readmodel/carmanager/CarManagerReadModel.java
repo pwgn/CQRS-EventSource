@@ -1,8 +1,7 @@
-package dude.chrisp.cqrseventsource.application.carmanager.readmodel;
+package dude.chrisp.cqrseventsource.readmodel.carmanager;
 
 import dude.chrisp.cqrseventsource.domain.carmanager.model.Car;
 import dude.chrisp.cqrseventsource.domain.carmanager.repository.CarRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Stream;

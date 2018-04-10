@@ -3,12 +3,12 @@ package dude.chrisp.cqrseventsource.infrastructure.rest.controllers;
 import dude.chrisp.cqrseventsource.application.carmanager.CarManagerCommandHandlers;
 import dude.chrisp.cqrseventsource.application.carmanager.commands.CheckinCarCommand;
 import dude.chrisp.cqrseventsource.application.carmanager.commands.CheckoutCarCommand;
-import dude.chrisp.cqrseventsource.application.carmanager.readmodel.CarManagerReadModel;
 import dude.chrisp.cqrseventsource.domain.carmanager.exception.CarNotAvailableException;
 import dude.chrisp.cqrseventsource.domain.carmanager.model.Car;
 import dude.chrisp.cqrseventsource.infrastructure.rest.mapper.CarManagerMapper;
 import dude.chrisp.cqrseventsource.infrastructure.rest.dto.AddCarDto;
-import dude.chrisp.cqrseventsource.infrastructure.rest.dto.CarDto;
+import dude.chrisp.cqrseventsource.readmodel.carmanager.CarManagerReadModel;
+import dude.chrisp.cqrseventsource.readmodel.carmanager.dto.CarDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
