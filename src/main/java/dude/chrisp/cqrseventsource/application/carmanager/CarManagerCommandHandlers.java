@@ -4,7 +4,7 @@ import dude.chrisp.cqrseventsource.application.carmanager.commands.AddCarCommand
 import dude.chrisp.cqrseventsource.application.carmanager.commands.CheckinCarCommand;
 import dude.chrisp.cqrseventsource.application.carmanager.commands.CheckoutCarCommand;
 import dude.chrisp.cqrseventsource.domain.carmanager.model.Car;
-import dude.chrisp.cqrseventsource.domain.carmanager.repository.CarRepository;
+import dude.chrisp.cqrseventsource.domain.carmanager.spi.CarRepository;
 import org.springframework.stereotype.Service;
 
 @Service

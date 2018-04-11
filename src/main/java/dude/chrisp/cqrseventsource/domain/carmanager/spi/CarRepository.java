@@ -1,4 +1,4 @@
-package dude.chrisp.cqrseventsource.domain.carmanager.repository;
+package dude.chrisp.cqrseventsource.domain.carmanager.spi;
 
 import java.util.stream.Stream;
 

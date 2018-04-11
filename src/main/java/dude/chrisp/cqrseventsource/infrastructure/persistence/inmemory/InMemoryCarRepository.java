@@ -1,7 +1,7 @@
 package dude.chrisp.cqrseventsource.infrastructure.persistence.inmemory;
 
 import dude.chrisp.cqrseventsource.domain.carmanager.model.Car;
-import dude.chrisp.cqrseventsource.domain.carmanager.repository.CarRepository;
+import dude.chrisp.cqrseventsource.domain.carmanager.spi.CarRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
