@@ -2,28 +2,12 @@ package dude.chrisp.cqrseventsource.domain.carmanager.event;
 
 import dude.chrisp.cqrseventsource.common.domain.Event;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-
-public class CarCheckedinEvent implements Event {
+public class CarCheckedinEvent extends Event {
 
     public String id;
-    private int version;
-    private OffsetDateTime occurredOn;
 
     public CarCheckedinEvent(String id, int version) {
+        super(version);
         this.id = id;
-        this.version = version;
-        this.occurredOn = OffsetDateTime.now(ZoneId.of("Z"));
-    }
-
-    @Override
-    public int eventVersion() {
-        return version;
-    }
-
-    @Override
-    public OffsetDateTime occurredOn() {
-        return occurredOn;
     }
 }

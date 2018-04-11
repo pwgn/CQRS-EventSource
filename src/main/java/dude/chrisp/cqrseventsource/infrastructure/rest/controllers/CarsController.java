@@ -42,20 +42,20 @@ public class CarsController {
 	}
 
     @RequestMapping(method = RequestMethod.POST)
-	public CarDto postCar(@RequestBody AddCarDto addCarDto) {
+	public CarDto postCar(@RequestBody AddCarDto addCarDto) throws Exception {
 		Car car = carManagerCommandHandlers.handle(
 		        carManagerMapper.addCarDtoToAddCarCommand(addCarDto));
 		return carManagerMapper.carToCarDto(car);
     }
 
-    @RequestMapping(value="/{carId}/checkin", method = RequestMethod.PUT)
-    public void checkinCar(@PathVariable String carId) {
-	    carManagerCommandHandlers.handle(new CheckinCarCommand(carId));
+    @RequestMapping(value="/{carId}/checkin/{version}", method = RequestMethod.PUT)
+    public void checkinCar(@PathVariable String carId, @PathVariable int version) throws Exception {
+	    carManagerCommandHandlers.handle(new CheckinCarCommand(carId, version));
     }
 
-    @RequestMapping(value="/{carId}/checkout", method = RequestMethod.PUT)
-    public void checkoutCar(@PathVariable String carId) {
-        carManagerCommandHandlers.handle(new CheckoutCarCommand(carId));
+    @RequestMapping(value="/{carId}/checkout/{version}", method = RequestMethod.PUT)
+    public void checkoutCar(@PathVariable String carId, @PathVariable int version) throws Exception {
+        carManagerCommandHandlers.handle(new CheckoutCarCommand(carId, version));
     }
 
     @ResponseStatus(value = HttpStatus.CONFLICT, reason = "car not available")
@@ -64,4 +64,9 @@ public class CarsController {
 
     }
 
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "shit hit the fan")
+	@ExceptionHandler(Exception.class)
+	void handleException() {
+
+	}
 }

@@ -36,7 +36,6 @@ public class InMemoryCarRepository implements CarRepository {
 
     @Override
     public Car addCar(Car newCar) {
-        newCar.id = "" + newCar.hashCode();
         cars.add(newCar);
         return newCar;
     }

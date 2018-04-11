@@ -1,8 +1,18 @@
 package dude.chrisp.cqrseventsource.common.domain;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 
-public interface Event {
-    int eventVersion();
-    OffsetDateTime occurredOn();
+public class Event {
+    public int version;
+    private OffsetDateTime occurredOn;
+
+    public Event(int version) {
+        this.occurredOn = OffsetDateTime.now(ZoneId.of("Z"));
+    }
+
+    public OffsetDateTime occurredOn() {
+        return occurredOn;
+    }
+
 }

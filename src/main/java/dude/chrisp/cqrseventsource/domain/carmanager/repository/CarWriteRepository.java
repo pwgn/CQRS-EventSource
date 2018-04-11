@@ -18,12 +18,12 @@ public class CarWriteRepository implements Repository<Car> {
     }
 
     @Override
-    public void save(AggregateRoot aggregateRoot, int expectedVersion) {
+    public void save(AggregateRoot aggregateRoot, int expectedVersion) throws Exception {
         eventStore.saveEvents(aggregateRoot.id, aggregateRoot.getUncommitedChanges(), expectedVersion);
     }
 
     @Override
-    public Car GetById(String id) {
+    public Car GetById(String id) throws Exception {
         Car car = new Car();
         List<Event> events = eventStore.getEventsForAggregate(id);
         car.loadFromHistory(events);
