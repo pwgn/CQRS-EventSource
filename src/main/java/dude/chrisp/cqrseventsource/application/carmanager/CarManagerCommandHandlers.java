@@ -22,7 +22,8 @@ public class CarManagerCommandHandlers {
     }
 
     public Car handle(AddCarCommand addCarCommand) throws Exception {
-        Car newCar = new Car(UUID.randomUUID().toString(), addCarCommand.rate, addCarCommand.carModel);
+        String id = UUID.randomUUID().toString().subSequence(0,2).toString();
+        Car newCar = new Car(id, addCarCommand.rate, addCarCommand.carModel);
 
         // Write
         carWriteRepository.save(newCar, -1);

@@ -6,8 +6,7 @@ public class CarCheckedinEvent extends Event {
 
     public String id;
 
-    public CarCheckedinEvent(String id, int version) {
-        super(version);
+    public CarCheckedinEvent(String id) {
         this.id = id;
     }
 }

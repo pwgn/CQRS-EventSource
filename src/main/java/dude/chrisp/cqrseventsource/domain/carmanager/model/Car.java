@@ -8,27 +8,30 @@ import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCheckedoutEvent;
 import dude.chrisp.cqrseventsource.domain.carmanager.exception.CarNotAvailableException;
 
 public class Car extends AggregateRoot {
-    public String id;
 	public int rate;
 	public String carModel;
 	public boolean available;
 
-    public Car() { }
+    public Car() { super(null); }
 
     public Car(String id, int rate, String carModel) {
-		this.id = id;
+        super(id);
 		this.rate = rate;
 		this.carModel = carModel;
 		this.available = true;
+
+		applyChange(new CarCreatedEvent(id, rate, carModel, available));
 	}
 
     public void checkin() throws CarNotAvailableException {
         if(!this.available) throw new CarNotAvailableException();
         this.available = false;
+        applyChange(new CarCheckedinEvent(id));
     }
 
     public void checkout() {
         this.available = true;
+        applyChange(new CarCheckedoutEvent(id));
     }
 
     @Override

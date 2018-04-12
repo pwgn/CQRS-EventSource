@@ -7,7 +7,7 @@ public class Event {
     public int version;
     private OffsetDateTime occurredOn;
 
-    public Event(int version) {
+    public Event() {
         this.occurredOn = OffsetDateTime.now(ZoneId.of("Z"));
     }
 

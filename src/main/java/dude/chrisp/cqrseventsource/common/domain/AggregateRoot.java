@@ -8,7 +8,8 @@ public abstract class AggregateRoot {
 
     public String id;
 
-    public AggregateRoot() {
+    public AggregateRoot(String id) {
+        this.id = id;
         changes = new ArrayList<>();
     }
 

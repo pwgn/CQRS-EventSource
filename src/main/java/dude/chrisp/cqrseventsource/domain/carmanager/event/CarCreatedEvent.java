@@ -9,8 +9,7 @@ public class CarCreatedEvent extends Event {
     public String carModel;
     public boolean available;
 
-    public CarCreatedEvent(String id, int rate, String carModel, boolean available, int version) {
-        super(version);
+    public CarCreatedEvent(String id, int rate, String carModel, boolean available) {
         this.id = id;
         this.rate = rate;
         this.carModel = carModel;
