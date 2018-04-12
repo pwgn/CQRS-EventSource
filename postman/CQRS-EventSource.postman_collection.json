@@ -43,7 +43,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "{{host}}:{{port}}/cars/1/checkin",
+					"raw": "{{host}}:{{port}}/cars/1/checkin/0",
 					"host": [
 						"{{host}}"
 					],
@@ -64,7 +64,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "{{host}}:{{port}}/cars/1/checkout",
+					"raw": "{{host}}:{{port}}/cars/1/checkout/1",
 					"host": [
 						"{{host}}"
 					],

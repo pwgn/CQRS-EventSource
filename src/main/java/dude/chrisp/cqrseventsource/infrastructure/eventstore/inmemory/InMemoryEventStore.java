@@ -1,6 +1,7 @@
 package dude.chrisp.cqrseventsource.infrastructure.eventstore.inmemory;
 
 import dude.chrisp.cqrseventsource.common.domain.Event;
+import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCreatedEvent;
 import dude.chrisp.cqrseventsource.domain.carmanager.spi.EventStore;
 import dude.chrisp.cqrseventsource.infrastructure.eventstore.EventDescriptor;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,22 @@ public class InMemoryEventStore implements EventStore {
 
     public InMemoryEventStore() {
         eventStore = new HashMap<>();
+
+        List<EventDescriptor> car1 = new ArrayList<>();
+        car1.add(new EventDescriptor("1", new CarCreatedEvent("1", 10, "Audi A5", true), 0));
+        eventStore.put("1", car1);
+
+        List<EventDescriptor> car2 = new ArrayList<>();
+        car2.add(new EventDescriptor("2", new CarCreatedEvent("2", 20, "BMW 118i", true), 0));
+        eventStore.put("2", car2);
+
+        List<EventDescriptor> car3 = new ArrayList<>();
+        car3.add(new EventDescriptor("3", new CarCreatedEvent("3", 30, "Volvo V40", true), 0));
+        eventStore.put("3", car3);
+
+        List<EventDescriptor> car4 = new ArrayList<>();
+        car4.add(new EventDescriptor("4", new CarCreatedEvent("4", 40, "Ford Focus", true), 0));
+        eventStore.put("4", car4);
     }
 
     @Override
