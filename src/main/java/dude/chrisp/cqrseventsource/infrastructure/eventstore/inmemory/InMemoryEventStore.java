@@ -3,7 +3,7 @@ package dude.chrisp.cqrseventsource.infrastructure.eventstore.inmemory;
 import dude.chrisp.cqrseventsource.common.domain.Event;
 import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCreatedEvent;
 import dude.chrisp.cqrseventsource.domain.carmanager.spi.EventStore;
-import dude.chrisp.cqrseventsource.infrastructure.eventstore.bus.RabbitEventPublisher;
+import dude.chrisp.cqrseventsource.infrastructure.eventstore.bus.EventPublisher;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 @Repository
 public class InMemoryEventStore implements EventStore {
 
-    private RabbitEventPublisher eventPublisher;
+    private EventPublisher eventPublisher;
     private Map<String, List<EventDescriptor>> eventStore;
 
-    public InMemoryEventStore(RabbitEventPublisher eventPublisher) {
+    public InMemoryEventStore(EventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;
 
         eventStore = new HashMap<>();

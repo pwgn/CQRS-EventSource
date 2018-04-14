@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RabbitEventPublisher {
+public class RabbitEventPublisher implements EventPublisher {
 
     private final RabbitTemplate rabbitTemplate;
 
@@ -16,6 +16,7 @@ public class RabbitEventPublisher {
         this.rabbitTemplate = rabbitTemplate;
     }
 
+    @Override
     public void sendMessage(Message message) {
         rabbitTemplate.convertAndSend(CarRabbitConfigurer.TOPIC_EXCHANGE_NAME, CarRabbitConfigurer.ROUTING_KEY, message);
     }
