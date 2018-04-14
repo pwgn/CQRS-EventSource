@@ -1,4 +1,4 @@
-package dude.chrisp.cqrseventsource.infrastructure.eventstore;
+package dude.chrisp.cqrseventsource.infrastructure.eventstore.inmemory;
 
 import dude.chrisp.cqrseventsource.common.domain.Event;
 

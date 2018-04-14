@@ -11,13 +11,15 @@ https://www.rabbitmq.com/
 
 Is used as a event bus. It publishes events stored in the event store.
 
-## Postman
-
-This one is optional, but it is handy to run the requests.
-
 ### installation
 
 `sudo apt install rabbitmq`
+
+It is also possible to run Rabbitmq in a docker container if you check out rabbit mq github page.
+
+## Postman
+
+This one is optional, but it is handy to run the requests.
 
 # Run
 

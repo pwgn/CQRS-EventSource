@@ -1,9 +1,11 @@
 package dude.chrisp.cqrseventsource.common.domain;
 
+import dude.chrisp.cqrseventsource.common.event.Message;
+
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
-public class Event {
+public class Event implements Message {
     public int version;
     private OffsetDateTime occurredOn;
 

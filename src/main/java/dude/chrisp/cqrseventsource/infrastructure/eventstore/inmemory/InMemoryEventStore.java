@@ -3,7 +3,7 @@ package dude.chrisp.cqrseventsource.infrastructure.eventstore.inmemory;
 import dude.chrisp.cqrseventsource.common.domain.Event;
 import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCreatedEvent;
 import dude.chrisp.cqrseventsource.domain.carmanager.spi.EventStore;
-import dude.chrisp.cqrseventsource.infrastructure.eventstore.EventDescriptor;
+import dude.chrisp.cqrseventsource.infrastructure.eventstore.bus.RabbitEventPublisher;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -12,9 +12,12 @@ import java.util.stream.Collectors;
 @Repository
 public class InMemoryEventStore implements EventStore {
 
+    private RabbitEventPublisher eventPublisher;
     private Map<String, List<EventDescriptor>> eventStore;
 
-    public InMemoryEventStore() {
+    public InMemoryEventStore(RabbitEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
+
         eventStore = new HashMap<>();
 
         List<EventDescriptor> car1 = new ArrayList<>();
@@ -38,20 +41,21 @@ public class InMemoryEventStore implements EventStore {
     public void saveEvents(String aggregateId, List<Event> events, int expectedVersion) throws Exception {
         List<EventDescriptor> eventDescriptors = eventStore.get(aggregateId);
 
-        if(eventDescriptors == null) {
+        if (eventDescriptors == null) {
             eventDescriptors = new ArrayList<>();
             eventStore.put(aggregateId, eventDescriptors);
-        }
-        else if (eventDescriptors.get(eventDescriptors.size() - 1).version != expectedVersion
+        } else if (eventDescriptors.get(eventDescriptors.size() - 1).version != expectedVersion
                 && expectedVersion != -1) {
             throw new Exception("concurrency error");
         }
 
         int i = expectedVersion;
-        for(Event event : events) {
+        for (Event event : events) {
             i++;
             event.version = i;
             eventDescriptors.add(new EventDescriptor(aggregateId, event, i));
+
+            eventPublisher.sendMessage(event);
         }
     }
 
@@ -59,7 +63,7 @@ public class InMemoryEventStore implements EventStore {
     public List<Event> getEventsForAggregate(String aggregateId) throws Exception {
         List<EventDescriptor> eventDescriptors = eventStore.get(aggregateId);
 
-        if(eventDescriptors == null) {
+        if (eventDescriptors == null) {
             throw new Exception("aggregateId not found");
         }
 
