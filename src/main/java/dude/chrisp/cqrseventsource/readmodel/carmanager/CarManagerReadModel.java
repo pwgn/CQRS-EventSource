@@ -31,21 +31,29 @@ public class CarManagerReadModel {
 
     @RabbitHandler
     public void receiveMessage(CarCreatedEvent event) {
-        System.out.println("Received car created event");
+        System.out.println("CarManagerReadModel: Received car created event");
+        Car newCar = new Car(event.id, event.rate, event.carModel);
+        carRepository.addCar(newCar);
     }
 
     @RabbitHandler
     public void receiveMessage(CarCheckedinEvent event) {
-        System.out.println("Received car checkedin event");
+        System.out.println("CarManagerReadModel: Received car checkedin event");
+        Car car = carRepository.getCarById(event.id);
+        car.checkin();
+        carRepository.updateCar(car);
     }
 
     @RabbitHandler
     public void receiveMessage(CarCheckedoutEvent event) {
-        System.out.println("Received car checkedout event");
+        System.out.println("CarManagerReadModel: Received car checkedout event");
+        Car car = carRepository.getCarById(event.id);
+        car.checkout();
+        carRepository.updateCar(car);
     }
 
     @RabbitHandler(isDefault = true)
     public void receiveMessage(Object event) {
-        System.out.println("Received unhandled message");
+        System.out.println("CarManagerReadModel: Received unhandled message");
     }
 }
