@@ -5,11 +5,12 @@ import dude.chrisp.cqrseventsource.common.event.Message;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
-public class Event implements Message {
+public class Event extends Message {
     public int version;
     private OffsetDateTime occurredOn;
 
-    public Event() {
+    public Event(String messageKey) {
+        super(messageKey);
         this.occurredOn = OffsetDateTime.now(ZoneId.of("Z"));
     }
 

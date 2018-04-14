@@ -18,6 +18,7 @@ public class RabbitEventPublisher implements EventPublisher {
 
     @Override
     public void sendMessage(Message message) {
-        rabbitTemplate.convertAndSend(CarRabbitConfigurer.TOPIC_EXCHANGE_NAME, CarRabbitConfigurer.ROUTING_KEY, message);
+        System.out.println("Message sent: " + message.messageKey);
+        rabbitTemplate.convertAndSend(CarRabbitConfigurer.FANOUT_EXCHANGE_CAR_MANAGER, message.messageKey, message);
     }
 }
