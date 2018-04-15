@@ -36,7 +36,6 @@ public class CarsController {
 	public List<CarDto> getCars() {
 	    List<CarDto> cars = carManagerReadModel.GetAllCars()
                 .parallel()
-                .map(car -> carManagerMapper.carToCarDto(car))
                 .collect(Collectors.toList());
 		return cars;
 	}

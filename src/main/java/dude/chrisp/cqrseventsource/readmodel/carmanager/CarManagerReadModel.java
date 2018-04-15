@@ -4,8 +4,8 @@ import dude.chrisp.cqrseventsource.application.carmanager.CarRabbitConfigurer;
 import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCheckedinEvent;
 import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCheckedoutEvent;
 import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCreatedEvent;
-import dude.chrisp.cqrseventsource.domain.carmanager.model.Car;
-import dude.chrisp.cqrseventsource.domain.carmanager.spi.CarRepository;
+import dude.chrisp.cqrseventsource.readmodel.carmanager.dto.CarDto;
+import dude.chrisp.cqrseventsource.readmodel.carmanager.spi.CarReadRepository;
 import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.stereotype.Service;
 
@@ -19,39 +19,40 @@ import java.util.stream.Stream;
         )
 )
 public class CarManagerReadModel {
-    private final CarRepository carRepository;
+    private final CarReadRepository carReadRepository;
 
-    public CarManagerReadModel(CarRepository carRepository) {
-        this.carRepository = carRepository;
+    public CarManagerReadModel(CarReadRepository carReadRepository) {
+        this.carReadRepository = carReadRepository;
     }
 
-    public Stream<Car> GetAllCars() {
-        return this.carRepository.getCars();
+    public Stream<CarDto> GetAllCars() {
+        return this.carReadRepository.getCars();
     }
 
     @RabbitHandler
     public void receiveMessage(CarCreatedEvent event) {
         System.out.println("CarManagerReadModel: Received car created event");
-        Car newCar = new Car(event.id, event.rate, event.carModel);
-        carRepository.addCar(newCar);
+        CarDto newCar = new CarDto(event.version, event.id,
+                event.rate, event.carModel, event.available);
+        carReadRepository.addCar(newCar);
     }
 
     @RabbitHandler
     public void receiveMessage(CarCheckedinEvent event) {
         System.out.println("CarManagerReadModel: Received car checkedin event");
-        Car car = carRepository.getCarById(event.id);
-        car.checkin();
+        CarDto car = carReadRepository.getCarById(event.id);
         car.version = event.version;
-        carRepository.updateCar(car);
+        car.available = false;
+        carReadRepository.updateCar(car);
     }
 
     @RabbitHandler
     public void receiveMessage(CarCheckedoutEvent event) {
         System.out.println("CarManagerReadModel: Received car checkedout event");
-        Car car = carRepository.getCarById(event.id);
-        car.checkout();
+        CarDto car = carReadRepository.getCarById(event.id);
         car.version = event.version;
-        carRepository.updateCar(car);
+        car.available = true;
+        carReadRepository.updateCar(car);
     }
 
     @RabbitHandler(isDefault = true)
