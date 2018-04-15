@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.stream.Stream;
 
 @Service
-public class CarManagerQueryHandler {
+public class CarManagerReadModel {
     private final CarReadRepository carReadRepository;
 
-    public CarManagerQueryHandler(CarReadRepository carReadRepository) {
+    public CarManagerReadModel(CarReadRepository carReadRepository) {
         this.carReadRepository = carReadRepository;
     }
 
-    public Stream<CarDto> handle(CarsListQuery query) {
+    public Stream<CarDto> GetCars(CarsListQuery query) {
         return this.carReadRepository.getCars()
                 .filter(car -> query.available == null || car.available == query.available);
     }
