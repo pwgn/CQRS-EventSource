@@ -1,4 +1,4 @@
-package dude.chrisp.cqrseventsource.readmodel.carmanager;
+package dude.chrisp.cqrseventsource.readmodel.carmanager.view;
 
 import dude.chrisp.cqrseventsource.application.carmanager.CarRabbitConfigurer;
 import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCheckedinEvent;
@@ -14,24 +14,20 @@ import java.util.stream.Stream;
 @Service
 @RabbitListener(id = "CarManagerReadModelListener",
         bindings = @QueueBinding(
-                value = @Queue(value = CarRabbitConfigurer.QUEUE_CAR_MANAGER + ".CarManagerReadModel"),
+                value = @Queue(value = CarRabbitConfigurer.QUEUE_CAR_MANAGER + ".CarsListView"),
                 exchange = @Exchange(value = CarRabbitConfigurer.FANOUT_EXCHANGE_CAR_MANAGER, type = "fanout")
         )
 )
-public class CarManagerReadModel {
+public class CarsListView {
     private final CarReadRepository carReadRepository;
 
-    public CarManagerReadModel(CarReadRepository carReadRepository) {
+    public CarsListView(CarReadRepository carReadRepository) {
         this.carReadRepository = carReadRepository;
-    }
-
-    public Stream<CarDto> GetAllCars() {
-        return this.carReadRepository.getCars();
     }
 
     @RabbitHandler
     public void receiveMessage(CarCreatedEvent event) {
-        System.out.println("CarManagerReadModel: Received car created event");
+        System.out.println("CarsListView: Received car created event");
         CarDto newCar = new CarDto(event.version, event.id,
                 event.rate, event.carModel, event.available);
         carReadRepository.addCar(newCar);
@@ -39,7 +35,7 @@ public class CarManagerReadModel {
 
     @RabbitHandler
     public void receiveMessage(CarCheckedinEvent event) {
-        System.out.println("CarManagerReadModel: Received car checkedin event");
+        System.out.println("CarsListView: Received car checkedin event");
         CarDto car = carReadRepository.getCarById(event.id);
         car.version = event.version;
         car.available = false;
@@ -48,7 +44,7 @@ public class CarManagerReadModel {
 
     @RabbitHandler
     public void receiveMessage(CarCheckedoutEvent event) {
-        System.out.println("CarManagerReadModel: Received car checkedout event");
+        System.out.println("CarsListView: Received car checkedout event");
         CarDto car = carReadRepository.getCarById(event.id);
         car.version = event.version;
         car.available = true;
@@ -57,6 +53,6 @@ public class CarManagerReadModel {
 
     @RabbitHandler(isDefault = true)
     public void receiveMessage(Object event) {
-        System.out.println("CarManagerReadModel: Received unhandled message");
+        System.out.println("CarsListView: Received unhandled message");
     }
 }

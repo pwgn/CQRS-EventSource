@@ -7,7 +7,8 @@ import dude.chrisp.cqrseventsource.domain.carmanager.exception.CarNotAvailableEx
 import dude.chrisp.cqrseventsource.domain.carmanager.model.Car;
 import dude.chrisp.cqrseventsource.infrastructure.rest.mapper.CarManagerMapper;
 import dude.chrisp.cqrseventsource.infrastructure.rest.dto.AddCarDto;
-import dude.chrisp.cqrseventsource.readmodel.carmanager.CarManagerReadModel;
+import dude.chrisp.cqrseventsource.readmodel.carmanager.CarManagerQueryHandler;
+import dude.chrisp.cqrseventsource.readmodel.carmanager.queries.CarsListQuery;
 import dude.chrisp.cqrseventsource.readmodel.carmanager.dto.CarDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,20 +22,22 @@ import java.util.stream.Collectors;
 public class CarsController {
 
 	private final CarManagerCommandHandlers carManagerCommandHandlers;
-	private final CarManagerReadModel carManagerReadModel;
+	private final CarManagerQueryHandler carManagerQueryHandler;
 	private final CarManagerMapper carManagerMapper;
 
 	public CarsController(CarManagerCommandHandlers carManagerCommandHandlers,
-                          CarManagerReadModel carManagerReadModel,
+                          CarManagerQueryHandler carManagerQueryHandler,
                           CarManagerMapper carManagerMapper) {
 		this.carManagerCommandHandlers = carManagerCommandHandlers;
-		this.carManagerReadModel = carManagerReadModel;
+		this.carManagerQueryHandler = carManagerQueryHandler;
 		this.carManagerMapper = carManagerMapper;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<CarDto> getCars() {
-	    List<CarDto> cars = carManagerReadModel.GetAllCars()
+	public List<CarDto> getCars(
+	        @RequestParam(value = "available", defaultValue = "") Boolean available) {
+		CarsListQuery query = new CarsListQuery(available);
+	    List<CarDto> cars = carManagerQueryHandler.handle(query)
                 .parallel()
                 .collect(Collectors.toList());
 		return cars;
