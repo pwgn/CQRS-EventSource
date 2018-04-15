@@ -6,6 +6,7 @@ import java.util.List;
 public abstract class AggregateRoot {
     private List<Event> changes;
 
+    public int version;
     public String id;
 
     public AggregateRoot(String id) {

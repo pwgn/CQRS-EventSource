@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 @Service
 @RabbitListener(id = "CarManagerReadModelListener",
         bindings = @QueueBinding(
-                value = @Queue(value = CarRabbitConfigurer.QUEUE_CAR_MANAGER + ".CarCreatedEvent"),
+                value = @Queue(value = CarRabbitConfigurer.QUEUE_CAR_MANAGER + ".CarManagerReadModel"),
                 exchange = @Exchange(value = CarRabbitConfigurer.FANOUT_EXCHANGE_CAR_MANAGER, type = "fanout")
         )
 )
@@ -41,6 +41,7 @@ public class CarManagerReadModel {
         System.out.println("CarManagerReadModel: Received car checkedin event");
         Car car = carRepository.getCarById(event.id);
         car.checkin();
+        car.version = event.version;
         carRepository.updateCar(car);
     }
 
@@ -49,6 +50,7 @@ public class CarManagerReadModel {
         System.out.println("CarManagerReadModel: Received car checkedout event");
         Car car = carRepository.getCarById(event.id);
         car.checkout();
+        car.version = event.version;
         carRepository.updateCar(car);
     }
 
