@@ -19,14 +19,14 @@ public class CarWriteRepository implements Repository<Car> {
 
     @Override
     public void save(AggregateRoot aggregateRoot, int expectedVersion) throws Exception {
-        eventStore.saveEvents(aggregateRoot.id, aggregateRoot.getUncommitedChanges(), expectedVersion);
+        eventStore.saveEvents(aggregateRoot.id, aggregateRoot.getUncommitedEvents(), expectedVersion);
     }
 
     @Override
     public Car GetById(String id) throws Exception {
         Car car = new Car();
         List<Event> events = eventStore.getEventsForAggregate(id);
-        car.loadFromHistory(events);
+        car.applyEventHistory(events);
         return car;
     }
 }

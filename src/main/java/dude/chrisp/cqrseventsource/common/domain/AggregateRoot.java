@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AggregateRoot {
-    private List<Event> changes;
+    private List<Event> uncommitedEvents;
 
     public int version;
     public String id;
 
     public AggregateRoot(String id) {
         this.id = id;
-        changes = new ArrayList<>();
+        uncommitedEvents = new ArrayList<>();
     }
 
     public abstract void apply(Event event);
 
-    public List<Event> getUncommitedChanges() {
-        return changes;
+    public List<Event> getUncommitedEvents() {
+        return uncommitedEvents;
     }
 
-    public void loadFromHistory(List<Event> history) {
+    public void applyEventHistory(List<Event> history) {
         history.forEach(event -> this.applyChange(event, false));
     }
 
@@ -29,8 +29,8 @@ public abstract class AggregateRoot {
     }
 
     private void applyChange(Event event, boolean isNew) {
+        if (isNew) uncommitedEvents.add(event);
         apply(event);
-        if (isNew) changes.add(event);
     }
 }
 
