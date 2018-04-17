@@ -39,6 +39,7 @@ public class Car extends AggregateRoot {
         if (event instanceof CarCreatedEvent) apply((CarCreatedEvent) event);
         if (event instanceof CarCheckedinEvent) apply((CarCheckedinEvent) event);
         if (event instanceof CarCheckedoutEvent) apply((CarCheckedoutEvent) event);
+        version = event.version;
     }
 
     private void apply(CarCreatedEvent event) {
