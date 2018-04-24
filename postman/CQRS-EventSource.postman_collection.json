@@ -12,7 +12,21 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": ""
+					"raw": "{{host}}:{{port}}/cars/?available=1",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"cars",
+						""
+					],
+					"query": [
+						{
+							"key": "available",
+							"value": "1"
+						}
+					]
 				}
 			},
 			"response": []
@@ -21,8 +35,16 @@
 			"name": "PostCar",
 			"request": {
 				"method": "POST",
-				"header": [],
-				"body": {},
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"rate\": 1337,\n\t\"carModel\": \"Volvo V70\"\n}"
+				},
 				"url": {
 					"raw": "{{host}}:{{port}}/cars",
 					"host": [
@@ -51,7 +73,8 @@
 					"path": [
 						"cars",
 						"1",
-						"checkin"
+						"checkin",
+						"0"
 					]
 				}
 			},
@@ -72,7 +95,8 @@
 					"path": [
 						"cars",
 						"1",
-						"checkout"
+						"checkout",
+						"1"
 					]
 				}
 			},

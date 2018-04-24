@@ -32,3 +32,40 @@ This one is optional, but it is handy to run the requests.
 3. ???
 
 4. profit
+
+# Usage
+
+Start postman, load the collection and the environment variables located in the postman directory.
+
+For the PUT queries you will need to specify a version of the entity you would like to update. The version represents the current state of the entity you would like to modify. For each modification the version number will be incremented.
+
+Example:
+```
+
+POST /cars
+{
+    "version": 0,
+    "id": "81",
+    "rate": 1337,
+    "carModel": "Volvo V70",
+    "available": true
+}
+
+# PUT checkin/checkout requests are on the format:
+# PUT /cars/<id>/checkin/<version>
+
+PUT /cars/81/checkin/0
+
+GET /cars
+{
+    "version": 1, # note that version is incremented
+    "id": "81",
+    "rate": 1337,
+    "carModel": "Volvo V70",
+    "available": true
+}
+
+
+# increment version for the next change request, else the request will fail
+PUT /cars/81/checkout/1
+```
