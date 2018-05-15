@@ -16,10 +16,6 @@ public class Car extends AggregateRoot {
 
     public Car(String id, int rate, String carModel) {
         super(id);
-		this.rate = rate;
-		this.carModel = carModel;
-		this.available = true;
-
 		applyChange(new CarCreatedEvent(id, rate, carModel, available));
 	}
 
