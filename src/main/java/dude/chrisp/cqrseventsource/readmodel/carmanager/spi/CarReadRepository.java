@@ -2,7 +2,6 @@ package dude.chrisp.cqrseventsource.readmodel.carmanager.spi;
 
 import java.util.stream.Stream;
 
-import dude.chrisp.cqrseventsource.domain.carmanager.model.Car;
 import dude.chrisp.cqrseventsource.readmodel.carmanager.dto.CarDto;
 
 

@@ -1,8 +1,8 @@
 package dude.chrisp.cqrseventsource.infrastructure.eventstore.inmemory;
 
 import dude.chrisp.cqrseventsource.common.domain.Event;
-import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCreatedEvent;
-import dude.chrisp.cqrseventsource.domain.carmanager.spi.EventStore;
+import dude.chrisp.cqrseventsource.domain.car.event.CarCreatedEvent;
+import dude.chrisp.cqrseventsource.domain.car.spi.EventStore;
 import dude.chrisp.cqrseventsource.infrastructure.eventstore.bus.EventPublisher;
 import org.springframework.stereotype.Repository;
 

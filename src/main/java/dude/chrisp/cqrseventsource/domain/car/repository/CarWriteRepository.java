@@ -1,10 +1,10 @@
-package dude.chrisp.cqrseventsource.domain.carmanager.repository;
+package dude.chrisp.cqrseventsource.domain.car.repository;
 
 import dude.chrisp.cqrseventsource.common.domain.AggregateRoot;
 import dude.chrisp.cqrseventsource.common.domain.Event;
 import dude.chrisp.cqrseventsource.common.domain.Repository;
-import dude.chrisp.cqrseventsource.domain.carmanager.model.Car;
-import dude.chrisp.cqrseventsource.domain.carmanager.spi.EventStore;
+import dude.chrisp.cqrseventsource.domain.car.Car;
+import dude.chrisp.cqrseventsource.domain.car.spi.EventStore;
 
 import java.util.List;
 

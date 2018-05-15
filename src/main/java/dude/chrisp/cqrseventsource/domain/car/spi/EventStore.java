@@ -1,4 +1,4 @@
-package dude.chrisp.cqrseventsource.domain.carmanager.spi;
+package dude.chrisp.cqrseventsource.domain.car.spi;
 
 import dude.chrisp.cqrseventsource.common.domain.Event;
 

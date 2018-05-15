@@ -1,4 +1,4 @@
-package dude.chrisp.cqrseventsource.domain.carmanager.exception;
+package dude.chrisp.cqrseventsource.domain.car.exception;
 
 public class CarNotAvailableException extends RuntimeException {
 

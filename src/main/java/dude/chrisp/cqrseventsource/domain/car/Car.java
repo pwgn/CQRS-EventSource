@@ -1,11 +1,11 @@
-package dude.chrisp.cqrseventsource.domain.carmanager.model;
+package dude.chrisp.cqrseventsource.domain.car;
 
 import dude.chrisp.cqrseventsource.common.domain.AggregateRoot;
 import dude.chrisp.cqrseventsource.common.domain.Event;
-import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCheckedinEvent;
-import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCreatedEvent;
-import dude.chrisp.cqrseventsource.domain.carmanager.event.CarCheckedoutEvent;
-import dude.chrisp.cqrseventsource.domain.carmanager.exception.CarNotAvailableException;
+import dude.chrisp.cqrseventsource.domain.car.event.CarCheckedinEvent;
+import dude.chrisp.cqrseventsource.domain.car.event.CarCreatedEvent;
+import dude.chrisp.cqrseventsource.domain.car.event.CarCheckedoutEvent;
+import dude.chrisp.cqrseventsource.domain.car.exception.CarNotAvailableException;
 
 public class Car extends AggregateRoot {
 	public int rate;

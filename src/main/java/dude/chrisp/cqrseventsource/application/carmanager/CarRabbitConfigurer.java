@@ -7,11 +7,11 @@ import org.springframework.context.annotation.Bean;
 @EnableRabbit
 public class CarRabbitConfigurer {
 
-    public static final String FANOUT_EXCHANGE_CAR_MANAGER = "exchange.fanout.carmanager";
-    public static final String QUEUE_CAR_MANAGER = "queue.carmanager";
+    public static final String FANOUT_EXCHANGE_CAR_MANAGER = "exchange.fanout.car";
+    public static final String QUEUE_CAR_MANAGER = "queue.car";
 
     @Bean
-    public FanoutExchange CarExchange() {
-        return new FanoutExchange(FANOUT_EXCHANGE_CAR_MANAGER);
+    public TopicExchange CarExchange() {
+        return new TopicExchange(FANOUT_EXCHANGE_CAR_MANAGER);
     }
 }
